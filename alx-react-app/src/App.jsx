@@ -1,4 +1,8 @@
-import WelcomeMessage from './WelcomeMessage'
+import Header from './Header';
+import MainContent from './MainContent';
+import Footer from './Footer';
+
+import WelcomeMessage from './WelcomeMessage';
 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -31,6 +35,11 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+      <Header />
+      <MainContent />
+      <Footer />
+    </div>
     </>
   )
 }
