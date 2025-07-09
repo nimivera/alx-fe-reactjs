@@ -7,4 +7,4 @@ function MainContent() {
 }
 
 
-export default WelcomeMessage;
+export default MainContent;

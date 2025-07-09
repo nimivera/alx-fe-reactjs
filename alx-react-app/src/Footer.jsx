@@ -6,4 +6,4 @@ function Footer() {
     )
 }
 
-export default WelcomeMessage;
+export default Footer;

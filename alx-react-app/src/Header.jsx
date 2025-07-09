@@ -7,4 +7,4 @@ function Header() {
     )
 }
 
-export default WelcomeMessage;
+export default Header;
