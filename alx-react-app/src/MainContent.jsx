@@ -1,10 +1,9 @@
-function MainContent() {
+function Header() {
     return (
-        <main>
-  <p>I love to visit New York, Paris, and Tokyo.</p>
-</main>
-    )
-}
-
-
-export default MainContent;
+      <header>
+        <h1>My Favorite Cities</h1>
+      </header>
+    );
+  }
+  
+  export default Header;
