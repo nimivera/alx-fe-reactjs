@@ -1,11 +1,9 @@
-function Footer() {
+  function Header() {
     return (
-      <footer>
-  <p>© 2023 City Lovers</p>
-</footer>
+      <header>
+        <h1>My Favorite Cities</h1>
+      </header>
     );
   }
-  
-  export Footer:
 
-  ;
+  export default Header;
