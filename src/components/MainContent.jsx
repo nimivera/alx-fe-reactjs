@@ -4,7 +4,7 @@ function MainContent() {
         flexDirection: 'column',
         alignItems: 'center',
         padding: '20px',
-        minHeight: '80vh', color: 'white' }}>
+         color: 'white' }}>
         <p>I love to visit New York, Paris, and Tokyo.</p>
       </main>
     )
