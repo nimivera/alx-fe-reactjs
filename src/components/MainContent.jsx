@@ -1,7 +1,6 @@
 function MainContent() {
     return (
       <main  style={{ backgroundColor: 'navy',display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         padding: '20px',
          color: 'white' }}>
