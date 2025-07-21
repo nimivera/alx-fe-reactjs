@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import UserContext from '../UserContext';
 
-function UserProfile() {
+const UserProfile = () => {
   const userData = useContext(UserContext);
 
   return (
@@ -12,4 +12,6 @@ function UserProfile() {
       <p>Bio: Loves hiking and photography</p>
     </div>
   );
-}
+};
+
+export default UserProfile;
