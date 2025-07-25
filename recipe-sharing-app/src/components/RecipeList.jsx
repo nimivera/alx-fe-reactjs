@@ -15,3 +15,6 @@
       </div>
     );
   };
+
+  
+  export default RecipeList;
