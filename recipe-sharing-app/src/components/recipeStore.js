@@ -22,6 +22,8 @@ const useRecipeStore = create(set => ({
   filterRecipes: (searchTerm) => set(state => ({ 
     filteredRecipes: state.recipes.filter(recipe =>
       recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
+      (ingredients.length === 0 || recipe.ingredients.some(ingredient => ingredients.includes(ingredient))) &&
+    (cookingTime === '' || recipe.cookingTime <= cookingTime)
     ),
   })),
 }));
