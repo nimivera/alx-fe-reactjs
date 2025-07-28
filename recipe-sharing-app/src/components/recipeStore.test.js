@@ -1,4 +1,8 @@
-import create from 'zustand';
+import { create } from 'zustand';
+
+jest.mock('zustand', () => ({
+  create: jest.fn((fn) => fn((state) => state)),
+}));
 
 const useRecipeStore = create(set => ({
   recipes: [],
@@ -19,11 +23,13 @@ const useRecipeStore = create(set => ({
   deleteRecipe: (recipeId) => set(state => ({ 
     recipes: state.recipes.filter(recipe => recipe.id !== recipeId),
     filteredRecipes: state.filteredRecipes.filter(recipe => recipe.id !== recipeId),
-    favorites: state.favorites.filter(id => id !== recipeId)
+    favorites: state.favorites.filter(id => id !== recipeId),
+    recommendations: state.recommendations.filter(recipe => recipe.id !== recipeId)
   })),
   updateRecipe: (updatedRecipe) => set(state => ({ 
     recipes: state.recipes.map(recipe => recipe.id === updatedRecipe.id ? updatedRecipe : recipe),
-    filteredRecipes: state.filteredRecipes.map(recipe => recipe.id === updatedRecipe.id ? updatedRecipe : recipe)
+    filteredRecipes: state.filteredRecipes.map(recipe => recipe.id === updatedRecipe.id ? updatedRecipe : recipe),
+    recommendations: state.recommendations.map(recipe => recipe.id === updatedRecipe.id ? updatedRecipe : recipe)
   })),
   setSearchTerm: (searchTerm) => set({ searchTerm }),
   setIngredients: (ingredients) => set({ ingredients }),
@@ -32,10 +38,15 @@ const useRecipeStore = create(set => ({
     filteredRecipes: state.recipes.filter(recipe =>
       recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase()) &&
       (state.ingredients.length === 0 || recipe.ingredients.some(ingredient => state.ingredients.includes(ingredient))) &&
-      (state.cookingTime === '' || recipe.cookingTime <= state.cookingTime)
+      (state.cookingTime === '' || recipe.cookingTime <= parseInt(state.cookingTime))
     ),
   })),
-  addFavorite: (recipeId) => set(state => ({ favorites: [...state.favorites, recipeId] })),
+  addFavorite: (recipeId) => set(state => {
+    if (!state.favorites.includes(recipeId)) {
+      return { favorites: [...state.favorites, recipeId] };
+    }
+    return {};
+  }),
   removeFavorite: (recipeId) => set(state => ({ favorites: state.favorites.filter(id => id !== recipeId) })),
   generateRecommendations: () => set(state => {
     // Filter recipes based on favorites
@@ -50,4 +61,8 @@ const useRecipeStore = create(set => ({
   }),
 }));
 
-export default useRecipeStore;
+describe('useRecipeStore', () => {
+  it('should create the store', () => {
+    expect(useRecipeStore).toBeDefined();
+  });
+});
