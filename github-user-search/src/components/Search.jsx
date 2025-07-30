@@ -5,7 +5,8 @@ function Search() {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.get(`https://api.github.com/users/${username}`);
       setUserData(response.data);
@@ -16,13 +17,15 @@ function Search() {
 
   return (
     <div>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Search for a GitHub user"
-      />
-      <button onClick={handleSearch}>Search</button>
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Search for a GitHub user"
+        />
+        <button type="submit">Search</button>
+      </form>
       {userData && (
         <div>
           <h2>{userData.login}</h2>
