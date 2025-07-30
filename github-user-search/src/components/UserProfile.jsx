@@ -1,21 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { getUser } from '../services/githubService';
+import { fetchUserData } from '../services/githubService';
 
 function UserProfile() {
   const { username } = useParams();
   const [userData, setUserData] = React.useState(null);
 
   React.useEffect(() => {
-    const fetchUserData = async () => {
+    const getUserData = async () => {
       try {
-        const user = await getUser(username);
+        const user = await fetchUserData(username);
         setUserData(user);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchUserData();
+    getUserData();
   }, [username]);
 
   return (
