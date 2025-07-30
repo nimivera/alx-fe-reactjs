@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { getUser } from '../services/githubService';
 
 function UserProfile() {
   const { username } = useParams();
@@ -10,8 +9,8 @@ function UserProfile() {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://api.github.com/users/${username}`);
-        setUserData(response.data);
+        const user = await getUser(username);
+        setUserData(user);
       } catch (error) {
         console.error(error);
       }
