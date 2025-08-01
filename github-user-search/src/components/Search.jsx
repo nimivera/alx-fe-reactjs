@@ -38,7 +38,7 @@ function Search() {
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
-        <p>Error: {error}</p>
+        <p>Looks like we cant find the user</p>
       ) : userData ? (
         <div>
           <h2>{userData.login}</h2>
