@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { searchUsers, constructQuery } from '../services/githubService';
 
@@ -82,34 +81,36 @@ function Search() {
 
       {loading ? (
         <p className="text-center mt-4">Loading...</p>
-      ) : error ? (
-        <p className="text-center mt-4 text-red-500">Looks like we cant find the user</p>
       ) : (
-        searchResults && searchResults.items && searchResults.items.length > 0 && (
-          <ul className="list-none mt-4">
-            {searchResults.items.map((user) => (
-              <li key={user.id} className="py-2 border-b border-gray-200">
-                <a
-                  className="text-lg text-blue-700 hover:text-blue-900 hover:underline underline-offset-2"
-                  href={user.html_url}
-                  target="_blank"
-                  rel="noreferrer"
+        error ? (
+          <p className="text-center mt-4 text-red-500">Looks like we cant find the user</p>
+        ) : (
+          searchResults && searchResults.items && searchResults.items.length > 0 && (
+            <ul className="list-none mt-4">
+              {searchResults.items && searchResults.items.map((user) => (
+                <li key={user.id} className="py-2 border-b border-gray-200">
+                  <a
+                    className="text-lg text-blue-700 hover:text-blue-900 hover:underline underline-offset-2"
+                    href={user.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {user.login}
+                  </a>
+                  <p>Location: {user.location}</p>
+                  <p>Repositories: {user.public_repos}</p>
+                </li>
+              ))}
+              {searchResults.total_count > searchResults.items.length && (
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                  onClick={loadMore}
                 >
-                  {user.login}
-                </a>
-                <p>Location: {user.location}</p>
-                <p>Repositories: {user.public_repos}</p>
-              </li>
-            ))}
-            {searchResults.total_count > searchResults.items.length && (
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                onClick={loadMore}
-              >
-                Load More
-              </button>
-            )}
-          </ul>
+                  Load More
+                </button>
+              )}
+            </ul>
+          )
         )
       )}
     </div>
