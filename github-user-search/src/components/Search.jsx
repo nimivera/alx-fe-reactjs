@@ -10,7 +10,7 @@ function Search() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
 
-  const handleSearch = async (e) => {
+  const fetchUserData = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -49,7 +49,7 @@ function Search() {
 
   return (
     <div className="max-w-md mx-auto p-4 md:p-6 lg:p-8 bg-white rounded shadow-md">
-      <form onSubmit={handleSearch} className="flex flex-col gap-4">
+      <form onSubmit={fetchUserData} className="flex flex-col gap-4">
         <input
           type="text"
           value={username}
