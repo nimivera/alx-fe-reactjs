@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
-import { getUser } from '../services/githubService';
+import { fetchUserData } from '../services/githubService';
 
 function Search() {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setUserData(null);
+
     try {
-      const user = await getUser(username);
+      const user = await fetchUserData(username);
       setUserData(user);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -26,12 +34,22 @@ function Search() {
         />
         <button type="submit">Search</button>
       </form>
-      {userData && (
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : userData ? (
         <div>
           <h2>{userData.login}</h2>
           <img src={userData.avatar_url} alt={userData.login} />
+          <p>
+            <a href={userData.html_url} target="_blank" rel="noreferrer">
+              View GitHub Profile
+            </a>
+          </p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

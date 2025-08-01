@@ -9,6 +9,6 @@ export const fetchUserData = async (username) => {
     const response = await githubApi.get(`/users/${username}`);
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
