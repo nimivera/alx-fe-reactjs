@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { searchUsers, constructQuery } from '../services/githubService';
+import { fetchUserData, constructQuery } from '../services/githubService';
 
 function Search() {
   const [username, setUsername] = useState('');
@@ -20,7 +20,7 @@ function Search() {
     const query = constructQuery(username, location, minRepos);
 
     try {
-      const results = await searchUsers(query, page);
+      const results = await fetchUserData(query, page);
       setSearchResults(results);
     } catch (error) {
       setError(error.message);
@@ -34,7 +34,7 @@ function Search() {
     const query = constructQuery(username, location, minRepos);
     try {
       const nextPage = page + 1;
-      const results = await searchUsers(query, nextPage);
+      const results = await fetchUserData(query, nextPage);
       setSearchResults((prevResults) => ({
         ...results,
         items: [...prevResults.items, ...results.items],

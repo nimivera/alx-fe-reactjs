@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const searchUsers = async (query, page = 1) => {
+const fetchUserData= async (query, page = 1) => {
   try {
     const url = `https://api.github.com/search/users?q=${query}&page=${page}&per_page=10`;
     const response = await axios.get(url);
@@ -28,4 +28,4 @@ const constructQuery = (username, location, minRepos) => {
   return query.trim();
 };
 
-export { searchUsers, constructQuery };
+export { fetchUserData, constructQuery };
