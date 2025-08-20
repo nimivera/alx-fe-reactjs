@@ -1,0 +1,5 @@
+export default function Header() {
+    return (
+        <Header  className="bg-blue-600 text-white p-4 text-center text-2xl font-bold">Currency Converter</Header>
+    )
+}
