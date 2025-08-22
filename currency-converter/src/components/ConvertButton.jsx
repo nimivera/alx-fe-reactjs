@@ -1,11 +1,7 @@
-export default function ConvertButton({ onClick }) {
-    return (
-      <button 
-        onClick={onClick}
-        className="w-full bg-blue-600 text-white py-2 mt-4 rounded-md hover:bg-blue-700"
-      >
-        Convert
-      </button>
-    );
-  }
-  
+export default function ConvertButton() {
+  return (
+    <button className="w-full bg-green-600 text-white p-2 rounded mt-4">
+      Convert
+    </button>
+  );
+}
