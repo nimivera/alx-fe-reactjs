@@ -5,7 +5,7 @@ export default function AmountInput({value,onChange}) {
       <input
         type="number"
         className="w-full border rounded p-2"
-        placeholder="Enter amount"
+        placeholder='Enter amount'
         value={value}
         onChange={(e) => onChange(e.target.value)} 
       />
