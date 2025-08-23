@@ -4,7 +4,7 @@ export default function CurrencySelector({ label, value, onChange }) {
       <label className="block text-sm font-medium mb-1">{label}</label>
       <select
         className="w-full border rounded p-2"
-        value={value}
+       value={value}
         onChange={(e) => onChange(e.target.value)}
       >
         <option value="USD">USD — US Dollar</option>
