@@ -1,7 +1,9 @@
-export default function ConvertButton({onConver}) {
+export default function ConvertButton({ onConvert }) {
   return (
-    <button className="w-full bg-green-600 text-white p-2 rounded mt-4">
-      onclick={onConver}
+    <button
+      onClick={onConvert}
+      className="mt-4 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+    >
       Convert
     </button>
   );
