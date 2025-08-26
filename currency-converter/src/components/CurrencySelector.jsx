@@ -1,17 +1,36 @@
-export default function CurrencySelector({ label, value, onChange }) {
+// src/components/CurrencySelector.jsx
+export default function CurrencySelector({ fromCurrency, toCurrency, setFromCurrency, setToCurrency }) {
   return (
-    <div className="my-2">
-      <label className="block text-sm font-medium mb-1">{label}</label>
-      <select
-        className="w-full border rounded p-2"
-       value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        <option value="USD">USD — US Dollar</option>
-        <option value="NGN">NGN — Nigerian Naira</option>
-        <option value="EUR">EUR — Euro</option>
-        <option value="GBP">GBP — British Pound</option>
-      </select>
+    <div className="space-y-4 my-4">
+      {/* From Currency */}
+      <div>
+        <label className="block mb-1 font-medium">From Currency</label>
+        <select
+          value={fromCurrency}
+          onChange={(e) => setFromCurrency(e.target.value)}
+          className="border p-2 rounded w-full"
+        >
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="NGN">NGN</option>
+          <option value="GBP">GBP</option>
+        </select>
+      </div>
+
+      {/* To Currency */}
+      <div>
+        <label className="block mb-1 font-medium">To Currency</label>
+        <select
+          value={toCurrency}
+          onChange={(e) => setToCurrency(e.target.value)}
+          className="border p-2 rounded w-full"
+        >
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="NGN">NGN</option>
+          <option value="GBP">GBP</option>
+        </select>
+      </div>
     </div>
   );
 }

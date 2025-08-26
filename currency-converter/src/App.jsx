@@ -33,17 +33,25 @@ export default function App() {
     <div className="min-h-screen bg-gray-100">
       <Header />
       <main className="max-w-md mx-auto p-4">
+        {/* Loading & Error states */}
         {isLoading && <p>Loading rates...</p>}
         {error && <p className="text-red-500">Error fetching data</p>}
 
+        {/* Currency Selector (two dropdowns now) */}
         <CurrencySelector
           fromCurrency={fromCurrency}
           toCurrency={toCurrency}
           setFromCurrency={setFromCurrency}
           setToCurrency={setToCurrency}
         />
+
+        {/* Amount Input */}
         <AmountInput amount={amount} setAmount={setAmount} />
+
+        {/* Convert Button */}
         <ConvertButton onConvert={handleConvert} />
+
+        {/* Result Display */}
         <ResultDisplay result={result} />
       </main>
     </div>
