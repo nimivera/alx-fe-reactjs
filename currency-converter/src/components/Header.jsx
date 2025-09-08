@@ -1,7 +1,7 @@
 export default function Header() {
     return (
-      <header className="bg-blue-600 text-white p-4 text-center">
-        <h1 className="text-xl font-bold"> Currency Converter</h1>
+      <header className="w-full mx-auto bg-black flex justify-center py-5 not-[]: rounded-xl" >
+        <h1  className="text-white text-4xl "> Currency Converter</h1>
       </header>
     );
   }

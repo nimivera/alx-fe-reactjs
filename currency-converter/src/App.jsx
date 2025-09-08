@@ -1,43 +1,53 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Header from "./components/Header";
 import CurrencySelector from "./components/CurrencySelector";
 import AmountInput from "./components/AmountInput";
 import ConvertButton from "./components/ConvertButton";
 import ResultDisplay from "./components/ResultDisplay";
-import { useState } from "react";
 
 export default function App() {
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState("");
   const [result, setResult] = useState(null);
 
-  // 🔹 React Query fetch
+  // ✅ React Query v5 style
   const { data, error, isLoading } = useQuery({
     queryKey: ["exchangeRates", fromCurrency],
     queryFn: async () => {
-      const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
+      // switched to open.er-api.com for more reliable data (includes NGN)
+      const res = await fetch(`https://open.er-api.com/v6/latest/${fromCurrency}`);
       if (!res.ok) throw new Error("Failed to fetch rates");
       return res.json();
     },
+    enabled: !!fromCurrency,
+    staleTime: 1000 * 60 * 5, // cache for 5 mins
   });
 
-  // 🔹 Handle Conversion
   function handleConvert() {
-    if (!data) return;
+    if (!data || !data.rates) {
+      setResult("No data available yet.");
+      return;
+    }
+
     const rate = data.rates[toCurrency];
-    setResult((amount * rate).toFixed(2));
+    if (!rate) {
+      setResult(`No exchange rate available for ${toCurrency}`);
+      return;
+    }
+
+    setResult(`${(amount * rate).toFixed(2)} ${toCurrency}`);
+    setAmount(""); // ✅ clear input after showing result
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-900">
       <Header />
-      <main className="max-w-md mx-auto p-4">
-        {/* Loading & Error states */}
-        {isLoading && <p>Loading rates...</p>}
-        {error && <p className="text-red-500">Error fetching data</p>}
+      <main className="py-10">
+        {isLoading && <p className="text-white text-center">Loading rates...</p>}
+        {error && <p className="text-red-500 text-center">Error fetching data</p>}
 
-        {/* Currency Selector (two dropdowns now) */}
         <CurrencySelector
           fromCurrency={fromCurrency}
           toCurrency={toCurrency}
@@ -45,13 +55,10 @@ export default function App() {
           setToCurrency={setToCurrency}
         />
 
-        {/* Amount Input */}
-        <AmountInput amount={amount} setAmount={setAmount} />
+        <AmountInput value={amount} onChange={setAmount} />
 
-        {/* Convert Button */}
-        <ConvertButton onConvert={handleConvert} />
+        <ConvertButton onConvert={handleConvert} disabled={!amount} />
 
-        {/* Result Display */}
         <ResultDisplay result={result} />
       </main>
     </div>

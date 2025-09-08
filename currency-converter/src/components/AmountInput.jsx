@@ -1,13 +1,13 @@
-export default function AmountInput({value,onChange}) {
+export default function AmountInput({ value, onChange }) {
   return (
-    <div className="my-2">
-      <label className="block text-sm font-medium mb-1">Amount</label>
+    <div className="max-w-sm flex flex-col justify-around mx-auto my-10">
+      <p className="text-white">Amount</p>
       <input
+        className="bg-white py-2 rounded-xl text-black text-xl text-center"
         type="number"
-        className="w-full border rounded p-2"
-        placeholder='Enter amount'
+        placeholder="$"
         value={value}
-        onChange={(e) => onChange(e.target.value)} 
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );

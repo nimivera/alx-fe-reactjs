@@ -1,8 +1,9 @@
-export default function ConvertButton({ onConvert }) {
+export default function ConvertButton({ onConvert, disabled = false }) {
   return (
     <button
       onClick={onConvert}
-      className="mt-4 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+      disabled={disabled}
+      className="mx-auto flex px-10 rounded-xl text-white bg-black py-3 hover:bg-gray-700 disabled:opacity-50"
     >
       Convert
     </button>
