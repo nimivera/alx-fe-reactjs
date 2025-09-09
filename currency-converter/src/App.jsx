@@ -12,17 +12,17 @@ export default function App() {
   const [amount, setAmount] = useState("");
   const [result, setResult] = useState(null);
 
-  // ✅ React Query v5 style
+  
   const { data, error, isLoading } = useQuery({
     queryKey: ["exchangeRates", fromCurrency],
     queryFn: async () => {
-      // switched to open.er-api.com for more reliable data (includes NGN)
+     
       const res = await fetch(`https://open.er-api.com/v6/latest/${fromCurrency}`);
       if (!res.ok) throw new Error("Failed to fetch rates");
       return res.json();
     },
     enabled: !!fromCurrency,
-    staleTime: 1000 * 60 * 5, // cache for 5 mins
+    staleTime: 1000 * 60 * 5, 
   });
 
   function handleConvert() {
@@ -42,7 +42,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-zinc-900">
       <Header />
       <main className="py-10">
         {isLoading && <p className="text-white text-center">Loading rates...</p>}
