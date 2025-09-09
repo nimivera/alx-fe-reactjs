@@ -11,7 +11,7 @@ export default function PostsComponent() {
     return response.json();
   };
 
-  // useQuery hook
+  // useQuery with required options
   const {
     data: posts,
     error,
@@ -22,8 +22,10 @@ export default function PostsComponent() {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 5000, // data is fresh for 5s before re-fetching
+    staleTime: 5000, // data stays fresh for 5 seconds
     cacheTime: 1000 * 60 * 5, // cache persists for 5 minutes
+    refetchOnWindowFocus: true, // ✅ explicitly added
+    keepPreviousData: true,     // ✅ explicitly added
   });
 
   if (isLoading) return <p>Loading posts...</p>;
