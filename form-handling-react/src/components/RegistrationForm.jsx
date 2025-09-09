@@ -5,17 +5,27 @@ export default function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required");
+    if (!username) {
+      setErrors("Username is required");
       return;
     }
 
-    setError("");
+    if (!email) {
+      setErrors("Email is required");
+      return;
+    }
+
+    if (!password) {
+      setErrors("Password is required");
+      return;
+    }
+
+    setErrors("");
 
     try {
       const response = await fetch("https://jsonplaceholder.typicode.com/users", {
@@ -34,7 +44,7 @@ export default function RegistrationForm() {
       setPassword("");
     } catch (err) {
       console.error("Registration failed:", err);
-      setError("Something went wrong, please try again.");
+      setErrors("Something went wrong, please try again.");
     }
   };
 
@@ -42,7 +52,7 @@ export default function RegistrationForm() {
     <form onSubmit={handleSubmit}>
       <h2>User Registration (Controlled Components)</h2>
 
-      {error && <p>{error}</p>}
+      {errors && <p>{errors}</p>}
 
       <div>
         <label>Username: </label>

@@ -1,3 +1,4 @@
+// src/components/formikForm.js
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -12,7 +13,7 @@ export default function FormikForm() {
       .required("Password is required"),
   });
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm, setErrors }) => {
     try {
       const response = await fetch("https://jsonplaceholder.typicode.com/users", {
         method: "POST",
@@ -26,7 +27,7 @@ export default function FormikForm() {
       resetForm();
     } catch (err) {
       console.error("Registration failed:", err);
-      alert("Something went wrong, please try again.");
+      setErrors({ api: "Something went wrong, please try again." });
     } finally {
       setSubmitting(false);
     }
@@ -38,9 +39,12 @@ export default function FormikForm() {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, errors }) => (
         <Form>
           <h2>User Registration (Formik)</h2>
+
+          {/* Display API error */}
+          {errors.api && <div>{errors.api}</div>}
 
           <div>
             <label>Username: </label>
