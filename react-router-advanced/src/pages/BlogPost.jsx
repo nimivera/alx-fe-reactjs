@@ -1,12 +1,16 @@
+// src/components/BlogPost.jsx
+import React from "react";
 import { useParams } from "react-router-dom";
 
-export default function BlogPost() {
-  const { postId } = useParams();
+function BlogPost() {
+  const { id } = useParams();
 
   return (
     <div>
-      <h1>Blog Post {postId}</h1>
-      <p>This is content for post with ID: {postId}</p>
+      <h2>Blog Post</h2>
+      <p>Showing content for post ID: {id}</p>
     </div>
   );
 }
+
+export default BlogPost;
