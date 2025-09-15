@@ -1,17 +1,23 @@
+// src/components/Login.jsx
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
-export default function Login() {
+function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = () => {
-    localStorage.setItem("auth", "true"); // simple auth simulation
-    navigate("/profile");
+    login(); // update auth state
+    navigate("/profile"); // redirect to profile after login
   };
 
   return (
     <div>
-      <h1>Login Page</h1>
-      <button onClick={handleLogin}>Login</button>
+      <h2>Login Page</h2>
+      <button onClick={handleLogin}>Log In</button>
     </div>
   );
 }
+
+export default Login;

@@ -1,5 +1,5 @@
 // src/App.jsx
-import React, { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,36 +16,39 @@ import ProfileSettings from "./components/ProfileSettings";
 import BlogPost from "./components/BlogPost";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import { AuthProvider } from "./hooks/useAuth";
+
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* Protected Profile with Nested Routes */}
-        <Route
-          path="/profile/*"
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Profile />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
+          {/* Protected Profile route with nested routes */}
+          <Route
+            path="/profile/*"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="details" element={<ProfileDetails />} />
+            <Route path="settings" element={<ProfileSettings />} />
+          </Route>
 
-        {/* ✅ Dynamic Blog Route */}
-        <Route path="/blog/:id" element={<BlogPost />} />
+          {/* ✅ Dynamic blog route */}
+          <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* Catch-all for unknown routes */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+          {/* Catch-all redirect */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
