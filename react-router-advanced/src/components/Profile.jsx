@@ -3,7 +3,7 @@ import ProfileDetails from "../pages/ProfileDetails";
 import ProfileSettings from "../pages/ProfileSettings";
 
 export default function Profile() {
-  return (
+  return(
     <div>
       <h1>Profile Page</h1>
       <nav>
